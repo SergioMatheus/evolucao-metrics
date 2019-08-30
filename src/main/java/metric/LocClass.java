@@ -1,65 +1,75 @@
 package metric;
-import java.io.BufferedInputStream;
+
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Method;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class LocClass {
 	public static void main(String[] args) {
-//		String fileLocation = "C:\\Users\\100914500\\Desktop\\Metricas\\src\\main\\java\\metric\\LocClass.java";
 		String fileLocation = "C:\\Users\\Pichau\\Desktop\\metrics-evolucao\\src\\main\\java\\metric\\LocClass.java";
-		try {
-			System.out.println("Linhas de codigo: "+countLines(fileLocation));
-			System.out.println("Número de Classes: "+countClass(fileLocation));
-			System.out.println("Número de Metodos: "+countMethods());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		System.out.println("Linhas de codigo: " + countLines(fileLocation));
+		System.out.println("Número de Classes: " + countClass(fileLocation));
+		System.out.println("Número de Metodos: " + countMethods(fileLocation));
 	}
-	public static int countLines(String filename) throws IOException {
-		InputStream is = new BufferedInputStream(new FileInputStream(filename));
+
+	public static int countLines(String fileLocation) {
+		int LinesCount = 0;
 		try {
-			byte[] c = new byte[1024];
-			int count = 1;
-			int readChars = 0;
-			boolean empty = true;
-			while ((readChars = is.read(c)) != -1) {
-				empty = false;
-				for (int i = 0; i < readChars; ++i) {
-					if (c[i] == '\n') {
-						++count;
-					}
-				}
-			}
-			return (count == 0 && !empty) ? 1 : count;
-		} finally {
-			is.close();
-		}
-	}
-	private static int countClass(String FILE_PATH) {
-		int classCount = 0;
-		try {				
-			String regex = "(public class|private class|protected class).*";
-			BufferedReader br = new BufferedReader(new FileReader(FILE_PATH));
+			BufferedReader br = new BufferedReader(new FileReader(fileLocation));
+			String regexLinha = ".*(\\S)";
 			while (br.ready()) {
 				String linha = br.readLine();
 
-				if(linha.matches(regex)) {
+				if (linha.matches(regexLinha)) {
+					LinesCount++;
+				}
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		return LinesCount;
+	}
+
+	private static int countClass(String fileLocation) {
+		int classCount = 0;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(fileLocation));
+			final String regex = "(public|private|protected).*(class).*(\\()*(\\{)";
+
+			while (br.ready()) {
+				String linha = br.readLine();
+
+				if (linha.matches(regex)) {
 					classCount++;
 				}
 			}
-			br.close();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 		return classCount;
 	}
-	
-	private static int countMethods() {
-		Class<LocClass> classe = LocClass.class;
-		Method[] method = classe.getDeclaredMethods();
-		return method.length;
+
+	private static int countMethods(String fileLocation) {
+		int methodCount = 0;
+		final String regexMethod = "(public|private|protected).*(static|void|String|int|long|float|boolean|double|char|Bitmap|BigDecimal|Double|Long|Float).*(\\()*(\\{)";
+		Pattern p = Pattern.compile(regexMethod);
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(fileLocation));
+			while (br.ready()) {
+				String linhaAtual;
+				linhaAtual = br.readLine();
+
+				Matcher m = p.matcher(linhaAtual);
+				if (m.find()) {
+					methodCount++;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return methodCount;
 	}
 }
