@@ -26,15 +26,15 @@ public class LocClass {
 
 		navegatorPasta(pasta);
 
-		// mountCsvMês(pasta);
+		// mountCsvMÃªs(pasta);
 		// mountCsvLoc(pasta);
 	}
 
 	private static void printConsole(int somaLinhasCodigo, int somaClasses, int somaMethods) {
 		System.out.println("___________________________________________________");
 		System.out.println("Linhas de codigo: " + somaLinhasCodigo);
-		System.out.println("Número de Classes: " + somaClasses);
-		System.out.println("Número de Metodos: " + somaMethods);
+		System.out.println("NÃºmero de Classes: " + somaClasses);
+		System.out.println("NÃºmero de Metodos: " + somaMethods);
 	}
 
 	private static void navegatorPasta(File pasta) {
@@ -79,7 +79,7 @@ public class LocClass {
 			throws IOException {
 
 		FileWriter writer = new FileWriter(csvFile);
-		writer.append("MÊS");
+		writer.append("MÃŠS");
 		writer.append(" ");
 		writer.append("\n");
 		CSVUtil.writeLine(writer, meses);
@@ -91,7 +91,7 @@ public class LocClass {
 		writer.append(" ");
 		writer.append("\n");
 		CSVUtil.writeLine(writer, classes);
-		writer.append("MÉTODOS");
+		writer.append("MÃ‰TODOS");
 		writer.append(" ");
 		writer.append("\n");
 		CSVUtil.writeLine(writer, metodos);
@@ -144,6 +144,7 @@ public class LocClass {
 	private static int countMethods(String fileLocation) {
 		int methodCount = 0;
 		final String regexMethod = "(public|private|protected).*(static|void|String|int|long|float|boolean|double|char|Bitmap|BigDecimal|Double|Long|Float).*(\\()*(\\{)";
+		//	^[ |\t](?:\w+ ){0,3}.*(\\()*(\\{)
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileLocation));
 			Pattern p = Pattern.compile(regexMethod);
