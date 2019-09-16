@@ -22,7 +22,7 @@ public class LocClass {
 	private static int somaMethods = 0;
 
 	public static void main(String[] args) {
-		File pasta = new File("C:\\Users\\Pichau\\Desktop\\Dataset");
+		File pasta = new File("C:\\Users\\100914500\\Desktop\\Dataset");
 
 		navegatorPasta(pasta);
 
@@ -56,7 +56,7 @@ public class LocClass {
 					meses.add(listaArquivos[i].getParentFile().getName());
 				}
 
-				if (i+1 == listaArquivos.length){
+				if (i + 1 == listaArquivos.length) {
 					loc.add(Integer.toString(somaLinhasCodigo));
 					classes.add(Integer.toString(somaClasses));
 					metodos.add(Integer.toString(somaMethods));
@@ -64,14 +64,14 @@ public class LocClass {
 
 				System.out.println("Pasta do arquivo: " + listaArquivos[i].getParentFile().getName());
 				printConsole(somaLinhasCodigo, somaClasses, somaMethods);
-				try {
-					mountCsv(meses, loc, classes, metodos);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 
 //				printConsole(countLines(fileLocation), countClass(fileLocation), countMethods(fileLocation));
 			}
+		}
+		try {
+			mountCsv(meses, loc, classes, metodos);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -79,27 +79,8 @@ public class LocClass {
 			throws IOException {
 
 		FileWriter writer = new FileWriter(csvFile);
-		writer.append("MÊS");
-		writer.append(" ");
-		writer.append("\n");
-		CSVUtil.writeLine(writer, meses);
-		writer.append("LOC");
-		writer.append(" ");
-		writer.append("\n");
-		CSVUtil.writeLine(writer, loc);
-		writer.append("CLASSES");
-		writer.append(" ");
-		writer.append("\n");
-		CSVUtil.writeLine(writer, classes);
-		writer.append("MÉTODOS");
-		writer.append(" ");
-		writer.append("\n");
-		CSVUtil.writeLine(writer, metodos);
-		// for (String rowData : dados) {
-		// writer.append(rowData);
-		// writer.append("\n");
-		// writer.flush();
-		// }
+		writer.append("MÊS,LOC,CLASSES,MÉTODOS\n");
+		CSVUtil.writeLine(writer, meses, loc, classes, metodos);
 		writer.close();
 
 	}
@@ -144,7 +125,7 @@ public class LocClass {
 	private static int countMethods(String fileLocation) {
 		int methodCount = 0;
 		final String regexMethod = "(public|private|protected).*(static|void|String|int|long|float|boolean|double|char|Bitmap|BigDecimal|Double|Long|Float).*(\\()*(\\{)";
-		//	^[ |\t](?:\w+ ){0,3}.*(\\()*(\\{)
+		// ^[ |\t](?:\w+ ){0,3}.*(\\()*(\\{)
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileLocation));
 			Pattern p = Pattern.compile(regexMethod);

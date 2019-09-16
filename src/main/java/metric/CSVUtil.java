@@ -6,11 +6,7 @@ import java.util.List;
 
 public class CSVUtil {
 
-	private static final char DEFAULT_SEPARATOR = ',';
-
-	public static void writeLine(Writer w, List<String> values) throws IOException {
-		writeLine(w, values, DEFAULT_SEPARATOR, ' ');
-	}
+	private static final char DEFAULT_SEPARATOR = '\n';
 
 	private static String followCVSformat(String value) {
 
@@ -22,28 +18,27 @@ public class CSVUtil {
 
 	}
 
-	public static void writeLine(Writer w, List<String> values, char separators, char customQuote) throws IOException {
+	public static void writeLine(Writer w, List<String> valuesMeses,List<String> valuesLoc,List<String> valuesClasses,List<String> valuesMetodos) throws IOException {
 
 		boolean first = true;
-
-		if (separators == ' ') {
-			separators = DEFAULT_SEPARATOR;
-		}
+		char separators = DEFAULT_SEPARATOR;
 
 		StringBuilder sb = new StringBuilder();
-		for (String value : values) {
+		for (int i = 0; i < valuesMeses.size() ; i++) {
+
+//		for (String value : valuesMeses) {
 			if (!first) {
 				sb.append(separators);
 			}
-			if (customQuote == ' ') {
-				sb.append(followCVSformat(value));
-			} else {
-				sb.append(customQuote).append(followCVSformat(value)).append(customQuote);
-			}
+				sb.append(followCVSformat(valuesMeses.get(i))).append(',');
+				sb.append(followCVSformat(valuesLoc.get(i))).append(',');
+				sb.append(followCVSformat(valuesClasses.get(i))).append(',');
+				sb.append(followCVSformat(valuesMetodos.get(i))).append(',');
 
 			first = false;
+//		}
 		}
-		sb.append("\n");
+		sb.append(",");
 		w.append(sb.toString());
 
 	}
