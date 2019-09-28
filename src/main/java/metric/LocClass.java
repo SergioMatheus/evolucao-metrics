@@ -28,6 +28,7 @@ public class LocClass {
 
 	public static void main(String[] args) {
 		File pasta = new File("C:\\Users\\Pichau\\Desktop\\Dataset");
+//		File pasta = new File("C:\\Users\\Sérgio Matheus\\Desktop\\Dataset");
 		// File pasta = new
 		// File("C:\\Users\\Pichau\\Desktop\\Dataset\\1\\FileLoader.java");
 

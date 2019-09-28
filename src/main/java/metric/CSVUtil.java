@@ -65,11 +65,10 @@ public class CSVUtil {
 			sb.append(followCVSformat(arquivo.get(i).getClasses() + ","));
 			sb.append(followCVSformat(arquivo.get(i).getMethod() + ","));
 			sb.append(followCVSformat(arquivo.get(i).getClassGod() + ","));
-			sb.append(followCVSformat(arquivo.get(i).getMethodGod() + ","));
+			sb.append(followCVSformat(arquivo.get(i).getMethodGod() + ""));
 
 			first = false;
 		}
-		sb.append(",");
 		w.append(sb.toString());
 
 	}
