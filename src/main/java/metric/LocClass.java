@@ -27,8 +27,8 @@ public class LocClass {
 	private static String regexLinha = ".*(\\S)";
 
 	public static void main(String[] args) {
-		File pasta = new File("C:\\Users\\Pichau\\Desktop\\Dataset");
-//		File pasta = new File("C:\\Users\\Sérgio Matheus\\Desktop\\Dataset");
+		File pasta = new File("C:\\Users\\100914500\\Desktop\\DatasetEvolucao");
+//		File pasta = new File("C:\\Users\\SÃ©rgio Matheus\\Desktop\\Dataset");
 		// File pasta = new
 		// File("C:\\Users\\Pichau\\Desktop\\Dataset\\1\\FileLoader.java");
 
@@ -67,8 +67,8 @@ public class LocClass {
 				somaLinhasCodigo += countLines(fileLocation);
 				somaClasses += countClass(fileLocation);
 				somaMethods += countMethods(fileLocation);
-				somaMethodsGods += contMetGod(listaArquivos[i]);
-				somaClassGods += contClassGod(listaArquivos[i]);
+//				somaMethodsGods += contMetGod(listaArquivos[i]);
+//				somaClassGods += contClassGod(listaArquivos[i]);
 
 				if (!meses.contains(listaArquivos[i].getParentFile().getName())) {
 					meses.add(listaArquivos[i].getParentFile().getName());
@@ -98,22 +98,10 @@ public class LocClass {
 		}
 	}
 
-	// private static void mountCsv(List<String> meses, List<String> loc,
-	// List<String> classes, List<String> classesGods,
-	// List<String> metodos, List<String> metodosGods) throws IOException {
-	//
-	// FileWriter writer = new FileWriter(csvFile);
-	// writer.append("MÊS,LOC,CLASSES,MÉTODOS,CLASSES DEUS,MÉTODOS DEUS\n");
-	// CSVUtil.writeLine(writer, meses, loc, classes, classesGods, metodos,
-	// metodosGods);
-	// writer.close();
-	//
-	// }
-
 	private static void mountCsv(List<Pasta> file) throws IOException {
 
 		FileWriter writer = new FileWriter(csvFile);
-		writer.append("MÊS,LOC,CLASSES,MÉTODOS,CLASSES DEUS,MÉTODOS DEUS\n");
+		writer.append("MÃŠS,LOC,CLASSES,MÃ‰TODOS\n");
 		CSVUtil.writeLine(writer, file);
 		writer.close();
 
@@ -121,7 +109,7 @@ public class LocClass {
 
 	public static boolean comment(String line) {
 		line = line.trim();
-		return line.startsWith("//") || line.startsWith("/*") || line.startsWith("/**");
+		return line.startsWith("//") || line.startsWith("/*") || line.startsWith("/**")|| line.startsWith("#")|| line.startsWith("*")|| line.startsWith("*/");
 	}
 
 	public static int countLines(String fileLocation) {
@@ -145,8 +133,9 @@ public class LocClass {
 		int classCount = 0;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileLocation));
-			final String regex = "(public|private|protected).*(class).*(\\()*(\\{)";
-			// String regex = "(struct|STRUCT|Struct).*(\\w)*(\\w)" regex para pegar structs no codigo c
+//			final String regex = "(public|private|protected).*(class).*(\\()*(\\{)";
+//			 regex para pegar structs no codigo c
+			 String regex = "(struct|STRUCT|Struct).*(\\w)*(\\w)";
 			// final String regex = "class \\w+";
 			Pattern p = Pattern.compile(regex);
 			while (br.ready()) {
@@ -188,171 +177,4 @@ public class LocClass {
 
 	}
 
-	public static int contClassGod(File file) throws IOException {
-		int contClassGod = 0;
-		List<Contador> contadores = new ArrayList<Contador>();
-		Contador contador = null;
-
-		File arquivoLeitura = file;
-		FileInputStream fs = new FileInputStream(arquivoLeitura);
-		new DataInputStream(fs);
-
-		FileReader arqv = new FileReader(arquivoLeitura);
-		BufferedReader leitura = new BufferedReader(arqv);
-
-		String line = leitura.readLine();
-
-		while (line != null) {
-
-			if (!contadores.isEmpty() || contadores != null) {
-				for (Contador cont : contadores) {
-
-					if (cont.getCont() != 0) {
-						cont.setLinha(cont.getLinha() + 1);
-					}
-				}
-
-				if (line.equals("")) {
-					for (Contador cont : contadores) {
-
-						if (cont.getCont() != 0) {
-							cont.setLinha(cont.getLinha() - 1);
-						}
-					}
-				}
-			}
-
-			if (line.contains("{")) {
-
-				if (!contadores.isEmpty() || contadores != null) {
-					for (Contador cont : contadores) {
-
-						if (cont.getCont() != 0) {
-							cont.setCont(cont.getCont() + 1);
-						}
-					}
-				}
-
-				if (line.contains("public") && line.contains("class") && !line.contains("/*")
-						|| line.contains("private") && line.contains("class") && !line.contains("/*")
-						|| line.contains("protected") && line.contains("class") && !line.contains("/*")) {
-					contador = new Contador();
-					contador.setCont(contador.getCont() + 1);
-					contadores.add(contador);
-				}
-			}
-
-			if (line.contains("}")) {
-				if (!contadores.isEmpty() || contadores != null) {
-					for (Contador cont : contadores) {
-
-						if (cont.getCont() != 0) {
-							cont.setCont(cont.getCont() - 1);
-						}
-					}
-
-				}
-			}
-
-			if (!contadores.isEmpty() || contadores != null) {
-				for (Contador cont : contadores) {
-					if (cont.getCont() == 0) {
-						if (cont.getLinha() > 800) {
-							contClassGod++;
-							cont.setLinha(0);
-						} else {
-							cont.setLinha(0);
-						}
-					}
-				}
-
-			}
-			line = leitura.readLine();
-		}
-
-		return contClassGod;
-	}
-
-	public static int contMetGod(File file) throws IOException {
-		int contMetGod = 0;
-		List<Contador> contadores = new ArrayList<Contador>();
-		Contador contador = null;
-
-		File arquivoLeitura = file;
-		FileInputStream fs = new FileInputStream(arquivoLeitura);
-		new DataInputStream(fs);
-
-		FileReader arqv = new FileReader(arquivoLeitura);
-		BufferedReader leitura = new BufferedReader(arqv);
-
-		String line = leitura.readLine();
-		while (line != null) {
-
-			if (!contadores.isEmpty() || contadores != null) {
-				for (Contador cont : contadores) {
-					if (cont.getCont() != 0) {
-						cont.setLinha(cont.getLinha() + 1);
-					}
-				}
-
-				if (line.equals("")) {
-
-					for (Contador cont : contadores) {
-						if (cont.getCont() != 0) {
-							cont.setLinha(cont.getLinha() - 1);
-						}
-					}
-				}
-			}
-
-			if (line.contains("{")) {
-
-				if (!contadores.isEmpty() || contadores != null) {
-					for (Contador cont : contadores) {
-						if (cont.getCont() != 0) {
-							cont.setCont(cont.getCont() + 1);
-						}
-					}
-				}
-
-				if (line.contains("public") && line.contains("(") && line.contains("{") && !line.contains("/*")
-						|| line.contains("private") && line.contains("{") && line.contains("(") && !line.contains("/*")
-						|| line.contains("protected") && line.contains("{") && line.contains("(")
-								&& !line.contains("/*")) {
-					contador = new Contador();
-					contador.setCont(contador.getCont() + 1);
-					contadores.add(contador);
-
-				}
-
-			}
-			if (line.contains("}")) {
-
-				if (!contadores.isEmpty() || contadores != null) {
-					for (Contador cont : contadores) {
-						if (cont.getCont() != 0) {
-							cont.setCont(cont.getCont() - 1);
-						}
-					}
-				}
-			}
-
-			if (!contadores.isEmpty() || contadores != null) {
-				for (Contador cont : contadores) {
-					if (cont.getCont() == 0) {
-						if (cont.getLinha() > 127) {
-							contMetGod++;
-							cont.setLinha(0);
-						} else {
-							cont.setLinha(0);
-						}
-					}
-				}
-			}
-
-			line = leitura.readLine();
-
-		}
-		return contMetGod;
-	}
 }
