@@ -28,7 +28,7 @@ public class LocClass {
 
 	public static void main(String[] args) {
 		File pasta = new File("C:\\Users\\Pichau\\Desktop\\Dataset");
-//		File pasta = new File("C:\\Users\\Sérgio Matheus\\Desktop\\Dataset");
+//		File pasta = new File("C:\\Users\\SÃ©rgio Matheus\\Desktop\\Dataset");
 		// File pasta = new
 		// File("C:\\Users\\Pichau\\Desktop\\Dataset\\1\\FileLoader.java");
 
@@ -103,7 +103,7 @@ public class LocClass {
 	// List<String> metodos, List<String> metodosGods) throws IOException {
 	//
 	// FileWriter writer = new FileWriter(csvFile);
-	// writer.append("MÊS,LOC,CLASSES,MÉTODOS,CLASSES DEUS,MÉTODOS DEUS\n");
+	// writer.append("MÃŠS,LOC,CLASSES,MÃ‰TODOS,CLASSES DEUS,MÃ‰TODOS DEUS\n");
 	// CSVUtil.writeLine(writer, meses, loc, classes, classesGods, metodos,
 	// metodosGods);
 	// writer.close();
@@ -113,7 +113,7 @@ public class LocClass {
 	private static void mountCsv(List<Pasta> file) throws IOException {
 
 		FileWriter writer = new FileWriter(csvFile);
-		writer.append("MÊS,LOC,CLASSES,MÉTODOS,CLASSES DEUS,MÉTODOS DEUS\n");
+		writer.append("MÃŠS,LOC,CLASSES,MÃ‰TODOS,CLASSES DEUS,MÃ‰TODOS DEUS\n");
 		CSVUtil.writeLine(writer, file);
 		writer.close();
 
@@ -146,6 +146,7 @@ public class LocClass {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fileLocation));
 			final String regex = "(public|private|protected).*(class).*(\\()*(\\{)";
+			// String regex = "(struct|STRUCT|Struct).*(\\w)*(\\w)" regex para pegar structs no codigo c
 			// final String regex = "class \\w+";
 			Pattern p = Pattern.compile(regex);
 			while (br.ready()) {
