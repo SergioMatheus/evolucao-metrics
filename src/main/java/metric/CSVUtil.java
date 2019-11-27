@@ -18,6 +18,7 @@ public class CSVUtil {
 
 	}
 
+
 	// public static void writeLine(Writer w, List<String> valuesMeses,
 	// List<String> valuesLoc, List<String> valuesClasses,
 	// List<String> valuesClassesGods, List<String> valuesMetodos, List<String>
@@ -64,6 +65,8 @@ public class CSVUtil {
 			sb.append(followCVSformat(arquivo.get(i).getLoc() + ","));
 			sb.append(followCVSformat(arquivo.get(i).getClasses() + ","));
 			sb.append(followCVSformat(arquivo.get(i).getMethod() + ","));
+			sb.append(followCVSformat(arquivo.get(i).getForWhile() + ","));
+			sb.append(followCVSformat(arquivo.get(i).getIfs() + ","));
 			sb.append(followCVSformat(arquivo.get(i).getClassGod() + ","));
 			sb.append(followCVSformat(arquivo.get(i).getMethodGod() + ""));
 

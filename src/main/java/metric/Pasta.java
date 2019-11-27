@@ -8,6 +8,8 @@ public class Pasta {
 	private Integer method = 0;
 	private Integer classGod = 0;
 	private Integer methodGod = 0;
+	private Integer forWhile = 0;
+	private Integer ifs = 0;
 
 	public Integer getMes() {
 		return mes;
@@ -57,9 +59,25 @@ public class Pasta {
 		this.methodGod = methodGod;
 	}
 
+	public Integer getForWhile() {
+		return forWhile;
+	}
+
+	public void setForWhile(Integer forWhile) {
+		this.forWhile = forWhile;
+	}
+
+	public Integer getIfs() {
+		return ifs;
+	}
+
+	public void setIfs(Integer ifs) {
+		this.ifs = ifs;
+	}
+
 	@Override
 	public String toString() {
-		return mes + "," + loc + "," + classes + "," + method + "," + classGod + "," + methodGod;
+		return mes + "," + loc + "," + classes + "," + method + "," + classGod + "," + methodGod + "," + forWhile + "," + ifs;
 	}
 
 }
