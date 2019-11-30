@@ -67,8 +67,8 @@ public class CSVUtil {
 			sb.append(followCVSformat(arquivo.get(i).getMethod() + ","));
 			sb.append(followCVSformat(arquivo.get(i).getForWhile() + ","));
 			sb.append(followCVSformat(arquivo.get(i).getIfs() + ","));
-			sb.append(followCVSformat(arquivo.get(i).getClassGod() + ","));
-			sb.append(followCVSformat(arquivo.get(i).getMethodGod() + ""));
+//			sb.append(followCVSformat(arquivo.get(i).getClassGod() + ""));
+//			sb.append(followCVSformat(arquivo.get(i).getMethodGod() + ""));
 
 			first = false;
 		}
