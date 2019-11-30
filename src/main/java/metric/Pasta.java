@@ -6,8 +6,8 @@ public class Pasta {
 	private Integer loc = 0;
 	private Integer classes = 0;
 	private Integer method = 0;
-	private Integer classGod = 0;
-	private Integer methodGod = 0;
+//	private Integer classGod = 0;
+//	private Integer methodGod = 0;
 	private Integer forWhile = 0;
 	private Integer ifs = 0;
 
@@ -43,21 +43,21 @@ public class Pasta {
 		this.method = method;
 	}
 
-	public Integer getClassGod() {
-		return classGod;
-	}
-
-	public void setClassGod(Integer classGod) {
-		this.classGod = classGod;
-	}
-
-	public Integer getMethodGod() {
-		return methodGod;
-	}
-
-	public void setMethodGod(Integer methodGod) {
-		this.methodGod = methodGod;
-	}
+//	public Integer getClassGod() {
+//		return classGod;
+//	}
+//
+//	public void setClassGod(Integer classGod) {
+//		this.classGod = classGod;
+//	}
+//
+//	public Integer getMethodGod() {
+//		return methodGod;
+//	}
+//
+//	public void setMethodGod(Integer methodGod) {
+//		this.methodGod = methodGod;
+//	}
 
 	public Integer getForWhile() {
 		return forWhile;
@@ -77,7 +77,7 @@ public class Pasta {
 
 	@Override
 	public String toString() {
-		return mes + "," + loc + "," + classes + "," + method + "," + classGod + "," + methodGod + "," + forWhile + "," + ifs;
+		return mes + "," + loc + "," + classes + "," + method + "," + forWhile + "," + ifs;
 	}
 
 }

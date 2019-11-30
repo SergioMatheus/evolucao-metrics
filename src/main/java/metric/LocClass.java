@@ -29,8 +29,8 @@ public class LocClass {
     private static String regexLinha = ".*(\\S)";
 
     public static void main(String[] args) {
-        File pasta = new File("C:\\Users\\endryl.santos.SOLUTIS\\Desktop\\DatasetEvolucao\\DatasetEvolucao");
-//		File pasta = new File("C:\\Users\\SÃ©rgio Matheus\\Desktop\\Dataset");
+//        File pasta = new File("C:\\Users\\endryl.santos.SOLUTIS\\Desktop\\DatasetEvolucao\\DatasetEvolucao");
+		File pasta = new File("C:\\Users\\Pichau\\Desktop\\DatasetEvolucao");
         // File pasta = new
         // File("C:\\Users\\Pichau\\Desktop\\Dataset\\1\\FileLoader.java");
 
@@ -92,8 +92,8 @@ public class LocClass {
                     csvLinha.setLoc(somaLinhasCodigo);
                     csvLinha.setClasses(somaClasses);
                     csvLinha.setMethod(somaMethods);
-                    csvLinha.setClassGod(somaClassGods);
-                    csvLinha.setMethodGod(somaMethodsGods);
+//                    csvLinha.setClassGod(somaClassGods);
+//                    csvLinha.setMethodGod(somaMethodsGods);
                     csvLinha.setForWhile(somaForWhile);
                     csvLinha.setIfs(somaIf);
                     listaCsv.add(csvLinha);
